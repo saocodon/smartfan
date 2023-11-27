@@ -1,6 +1,4 @@
-#ifndef _DHT11_H
-   #include <DHT11.H>
-#endif
+#include "dht11.h"
 
 void timer_delay20ms()		/* Timer0 delay function */
 {

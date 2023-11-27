@@ -1,8 +1,6 @@
-#include <REGX52.H>
-
-#ifndef _DHT11_H
-   #include <DHT11.H>
-#endif
+#include "stdutils.h"
+#include "nec_ir.h"
+#include "dht11.h"
 
 sbit LD7 = P1^4;
 sbit RD7 = P1^5;
@@ -17,7 +15,10 @@ void delayms(int ms) {
 
 void main() {
 	unsigned int i;
+	uint32_t key;
+	IR_RemoteInit(); // Initialize the INT0 and Timer0 for decoding the IR pulses
 	while (1) {
+		/* ======================= DHT11 ======================= */
 		Request();	/* send start pulse */
 		Response();	/* receive response */
 		
@@ -41,6 +42,12 @@ void main() {
 			LD7 = 0; RD7 = 1; P1 |= 15;
 			P1 = (P1 & (240 + I_Temp_D));
 			delayms(20);
+		}
+		/* ======================= REMOTE ======================= */
+		key = IR_RemoteGetKey(); // Read the key press, it returns key code if key press is detected, else it returns 0
+		switch (key) {
+			default:
+				break;
 		}
 	}
 }

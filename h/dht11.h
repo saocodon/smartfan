@@ -1,4 +1,4 @@
-#include <REGX52.H>
+#include <REG51.H>
 
 sbit DHT11 = P1^6;
 
